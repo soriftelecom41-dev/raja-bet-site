@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<script>
+function login(){
+  const name = document.getElementById("username").value;
+  if(name){
+    localStorage.setItem("user", name);
+    window.location.href = "index.html";
+  }else{
+    alert("Name required");
+  }
+}
+</script> html>
 <html>
 <head>
   <title>RAJA BET Login</title>
