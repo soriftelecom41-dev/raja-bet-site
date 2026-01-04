@@ -1,4 +1,4 @@
-// Initial balance
+let betAmount = 100;// Initial balance
 let balance = parseInt(localStorage.getItem("balance")) || 500;
 
 // Show balance
