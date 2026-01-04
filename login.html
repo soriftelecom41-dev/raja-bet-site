@@ -1,67 +1,35 @@
-<script>
-function login(){
-  const name = document.getElementById("username").value;
-  if(name){
-    localStorage.setItem("user", name);
-    window.location.href = "index.html";
-  }else{
-    alert("Name required");
-  }
-}
-</script> html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>RAJA BET Login</title>
-  <style>
-    body {
-      background:#0b1c2d;
-      color:white;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      font-family:Arial;
-    }
-    .box {
-      background:#111;
-      padding:20px;
-      border-radius:10px;
-      width:280px;
-      text-align:center;
-    }
-    input, button {
-      width:100%;
-      padding:10px;
-      margin-top:10px;
-      border:none;
-      border-radius:5px;
-    }
-    button {
-      background:green;
-      color:white;
-      font-weight:bold;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="box">
-  <h2>RAJA BET LOGIN</h2>
-  <input id="name" placeholder="Enter your name">
-  <button onclick="login()">Login</button>
-</div>
+  <h2>RAJA BET Login</h2>
 
-<script>
-function login(){
-  const name = document.getElementById("name").value;
-  if(name===""){
-    alert("Enter name");
-    return;
-  }
-  localStorage.setItem("user", name);
-  window.location.href = "index.html";
-}
-</script>
+  <input type="text" id="username" placeholder="Enter username">
+  <br><br>
+  <button onclick="login()">Login</button>
+
+  <script>
+    function login(){
+      const name = document.getElementById("username").value.trim();
+
+      if(name){
+        localStorage.setItem("currentUser", name);
+
+        // নতুন user হলে balance তৈরি
+        if(!localStorage.getItem("balance_" + name)){
+          localStorage.setItem("balance_" + name, 500);
+        }
+
+        window.location.href = "index.html";
+      }else{
+        alert("Name required");
+      }
+    }
+  </script>
 
 </body>
 </html>
