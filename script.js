@@ -1,62 +1,43 @@
-// ===== User Check =====
-const currentUser = localStorage.getItem("currentUser");
-if (!currentUser) location.href = "login.html";
+let balance = 0;
 
-// ===== Load User =====
-const userText = document.getElementById("user");
 const balanceText = document.getElementById("balance");
 
-userText.innerText = currentUser;
-
-let user = JSON.parse(localStorage.getItem("user_" + currentUser));
-if (!user) {
-  user = { balance: 500 };
-}
-
-let balance = user.balance;
-balanceText.innerText = balance;
-
-// ===== Save =====
-function save() {
-  user.balance = balance;
-  localStorage.setItem("user_" + currentUser, JSON.stringify(user));
+function update() {
   balanceText.innerText = balance;
 }
 
-// ===== Games =====
 function diceGame() {
-  play(50, 50, "🎲 Dice");
+  play(50, 100, "Dice");
 }
 
 function colorGame() {
-  play(50, 50, "🔴 Color");
+  play(50, 100, "Color");
 }
 
 function spinGame() {
-  play(50, 100, "🎡 Spin");
+  play(100, 200, "Spin");
 }
 
-function play(cost, winAmount, name) {
+function play(cost, win, name) {
   if (balance < cost) {
     alert("❌ Low balance");
     return;
   }
 
   if (Math.random() < 0.5) {
-    balance += winAmount;
+    balance += win;
     alert("🎉 " + name + " Win");
   } else {
     balance -= cost;
     alert("😢 " + name + " Lose");
   }
-  save();
+  update();
 }
 
-// ===== Deposit / Withdraw (Demo) =====
 function deposit() {
   balance += 500;
-  alert("💰 Deposit ৳500");
-  save();
+  alert("✅ Deposit ৳500");
+  update();
 }
 
 function withdraw() {
@@ -66,10 +47,18 @@ function withdraw() {
   }
   balance -= 100;
   alert("💸 Withdraw ৳100");
-  save();
+  update();
 }
 
-function logout() {
-  localStorage.removeItem("currentUser");
-  location.href = "login.html";
+function adminReset() {
+  const pass = document.getElementById("adminPass").value;
+  if (pass === "1234") {
+    balance = 500;
+    alert("🔐 Admin Reset Done");
+    update();
+  } else {
+    alert("❌ Wrong password");
+  }
 }
+
+update();
