@@ -1,9 +1,12 @@
-let betAmount = 100;// Initial balance
+
+// Initial balance
 let balance = parseInt(localStorage.getItem("balance")) || 500;
 
 // Show balance
 const balanceText = document.getElementById("balance");
-balanceText.innerText = "Balance: ৳" + balance;
+if (balanceText) {
+  balanceText.innerText = balance;
+}
 
 // Save balance
 function saveBalance() {
@@ -29,11 +32,9 @@ function playGame() {
     alert("😢 You Lose ৳100");
   }
 
-  balanceText.innerText = "Balance: ৳" + balance;
+  if (balanceText) {
+    balanceText.innerText = balance;
+  }
+
   saveBalance();
 }
-
-// Button click
-document
-  .getElementById("playBtn")
-  .addEventListener("click", playGame);
