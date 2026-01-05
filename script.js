@@ -1,6 +1,9 @@
-let balance = 0;
+let balanceText;
 
-const balanceText = document.getElementById("balance");
+window.onload = () => {
+  balanceText = document.getElementById("balance");
+  balance += 500;
+};
 
 function update() {
   balanceText.innerText = balance;
