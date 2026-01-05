@@ -1,43 +1,36 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #07172a;
-  color: white;
+  background:#0b0f1a;
+  color:#fff;
+  font-family:Arial;
+  text-align:center;
 }
 
 .top {
-  background: #0d2617;
-  padding: 15px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
+  padding:15px;
+  background:#000;
+  font-size:22px;
 }
 
 .banner {
-  background: linear-gradient(90deg, #16a34a, #22c55e);
-  padding: 12px;
-  text-align: center;
-  margin: 10px;
-  border-radius: 6px;
+  margin:10px;
+  background:green;
+  padding:10px;
+  border-radius:5px;
 }
 
 .balance {
-  text-align: center;
-  margin: 15px;
-  font-size: 18px;
+  font-size:20px;
+  margin:15px;
 }
 
-.games {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
+button {
+  padding:10px 15px;
+  margin:5px;
+  font-size:16px;
+  border:none;
+  border-radius:5px;
 }
 
-.card {
-  background: #0f293b;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-  cursor: pointer;
-}
+.games button { background:#222; color:#fff; }
+.wallet button { background:#0066ff; color:#fff; }
+.admin { margin-top:20px; }
