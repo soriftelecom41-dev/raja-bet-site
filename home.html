@@ -21,10 +21,42 @@ if(!data.balance){
 }
 </script>
 
-<h1>👑 RAJA BET</h1>
-<p>Balance: <span id="bal"></span> ৳</p>
+  <link rel="stylesheet" href="style.css">
 
-<button onclick="logout()">Logout</button>
+<div class="header">RAJA BET</div>
+
+<div class="balance-box">
+  Balance: ৳ <span id="bal">0</span>
+</div>
+
+<div class="games">
+  <div class="game">
+    🎰
+    <p>Lucky 7</p>
+  </div>
+  <div class="game">
+    🎲
+    <p>Dice</p>
+  </div>
+  <div class="game">
+    🎡
+    <p>Spin</p>
+  </div>
+  <div class="game">
+    ♠️
+    <p>Card</p>
+  </div>
+  <div class="game">
+    ⚽
+    <p>Sports</p>
+  </div>
+  <div class="game">
+    💰
+    <p>Casino</p>
+  </div>
+</div>
+
+<button class="logout" onclick="logout()">Logout</button>
 
 <script>
 const user2 = localStorage.getItem("currentUser");
