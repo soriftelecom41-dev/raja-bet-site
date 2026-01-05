@@ -61,4 +61,20 @@ function adminReset() {
   }
 }
 
-update();
+update();<div class="games">
+  <button onclick="diceGame()">🎲 Dice</button>
+  <button onclick="colorGame()">🔴 Color</button>
+  <button onclick="spinGame()">🎰 Spin</button>
+</div>
+
+<br>
+
+<button onclick="deposit()">➕ Deposit</button>
+<button onclick="withdraw()">➖ Withdraw</button>
+
+<br><br>
+
+<input type="password" id="adminPass" placeholder="Admin password">
+<button onclick="adminReset()">Admin Reset</button>
+
+<script src="script.js"></script>
