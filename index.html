@@ -7,7 +7,11 @@
 </head>
 
 <body>
-
+<script>
+if (!localStorage.getItem("currentUser")) {
+  location.href = "login.html";
+}
+</script>
   <div class="top">RAJA BET</div>
 
   <div class="banner">Welcome Bonus ৳500</div>
@@ -17,6 +21,7 @@
   </div>
 
   <div class="games">
+    <button onclick="logout()">Logout</button>
     <button onclick="lucky7()">🎰 Lucky 7</button>
     <button onclick="diceGame()">🎲 Dice</button>
     <button onclick="colorGame()">🔴 Color</button>
