@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAJA BET - Home</title>
+</head>
+
+<body>
+
+<script>
+// login check
+if (localStorage.getItem("login") !== "yes") {
+  location.href = "login.html";
+}
+
+// set balance first time
+if (!localStorage.getItem("balance")) {
+  localStorage.setItem("balance", 500);
+}
+</script>
+
+<h1>🎰 RAJA BET</h1>
+<p>Balance: <span id="bal"></span> ৳</p>
+
+<button onclick="logout()">Logout</button>
+
+<script>
+document.getElementById("bal").innerText =
+  localStorage.getItem("balance");
+
+function logout(){
+  localStorage.removeItem("login");
+  location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
