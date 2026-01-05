@@ -68,4 +68,23 @@ function adminReset() {
   }
 }
 
-update();
+function lucky7() {
+  const cost = 50;
+
+  if (balance < cost) {
+    alert("❌ Low balance");
+    return;
+  }
+
+  const number = Math.floor(Math.random() * 12) + 1;
+
+  if (number === 7) {
+    balance += 200;
+    alert("🎉 Lucky 7! You Win ৳200");
+  } else {
+    balance -= cost;
+    alert("😢 Number: " + number + " | You Lose");
+  }
+
+  update();
+}
