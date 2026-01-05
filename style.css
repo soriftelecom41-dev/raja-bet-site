@@ -1,36 +1,42 @@
-body {
-  background:#0b0f1a;
-  color:#fff;
-  font-family:Arial;
-  text-align:center;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAJA BET - Home</title>
+</head>
+<body>
+
+<script>
+const user = localStorage.getItem("currentUser");
+if(!user){
+  location.href = "login.html";
 }
 
-.top {
-  padding:15px;
-  background:#000;
-  font-size:22px;
-}
+// load user data
+let data = JSON.parse(localStorage.getItem("user_" + user));
 
-.banner {
-  margin:10px;
-  background:green;
-  padding:10px;
-  border-radius:5px;
+// set balance first time
+if(!data.balance){
+  data.balance = 500;
+  localStorage.setItem("user_" + user, JSON.stringify(data));
 }
+</script>
 
-.balance {
-  font-size:20px;
-  margin:15px;
+<h1>👑 RAJA BET</h1>
+<p>Balance: <span id="bal"></span> ৳</p>
+
+<button onclick="logout()">Logout</button>
+
+<script>
+const user2 = localStorage.getItem("currentUser");
+const data2 = JSON.parse(localStorage.getItem("user_" + user2));
+
+document.getElementById("bal").innerText = data2.balance;
+
+function logout(){
+  localStorage.removeItem("currentUser");
+  location.href = "login.html";
 }
+</script>
 
-button {
-  padding:10px 15px;
-  margin:5px;
-  font-size:16px;
-  border:none;
-  border-radius:5px;
-}
-
-.games button { background:#222; color:#fff; }
-.wallet button { background:#0066ff; color:#fff; }
-.admin { margin-top:20px; }
+</body>
+</html>
