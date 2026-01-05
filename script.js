@@ -1,13 +1,17 @@
+let balance = 0;
 let balanceText;
 
 window.onload = () => {
   balanceText = document.getElementById("balance");
-  balance += 500;
+  balance = 500; // Welcome bonus
+  update();
 };
 
 function update() {
   balanceText.innerText = balance;
 }
+
+/* ===== Games ===== */
 
 function diceGame() {
   play(50, 100, "Dice");
@@ -38,6 +42,8 @@ function play(cost, win, name) {
   update();
 }
 
+/* ===== Wallet ===== */
+
 function deposit() {
   balance += 500;
   alert("💰 Deposit ৳500");
@@ -55,18 +61,22 @@ function withdraw() {
   update();
 }
 
+/* ===== Admin ===== */
+
 function adminReset() {
   const pass = document.getElementById("adminPass").value;
 
   if (pass === "1234") {
     balance = 500;
     alert("✅ Admin Reset Done");
-    update();
     document.getElementById("adminPass").value = "";
+    update();
   } else {
     alert("❌ Wrong password");
   }
 }
+
+/* ===== Lucky 7 ===== */
 
 function lucky7() {
   const cost = 50;
