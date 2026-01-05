@@ -1,65 +1,50 @@
-let balance = parseInt(localStorage.getItem("balance")) || 500;
-updateBalance();
+const currentUser = localStorage.getItem("currentUser");
+if (!currentUser) location.href = "login.html";
 
-function updateBalance() {
-  document.getElementById("balance").innerText = balance;
-  localStorage.setItem("balance", balance);
+const userText = document.getElementById("user");
+const balanceText = document.getElementById("balance");
+
+userText.innerText = currentUser;
+
+let user = JSON.parse(localStorage.getItem("user_"+currentUser));
+let balance = user.balance;
+balanceText.innerText = balance;
+
+function save() {
+  user.balance = balance;
+  localStorage.setItem("user_"+currentUser, JSON.stringify(user));
+  balanceText.innerText = balance;
 }
 
-// 🎲 Dice Game
-function diceGame() {
-  if (balance < 100) return alert("❌ Insufficient balance");
-  balance -= 100;
-  if (Math.random() > 0.5) {
-    balance += 200;
-    alert("🎉 Dice Win ৳200");
+function play(cost, winAmount) {
+  if (balance < cost) return alert("Low balance");
+
+  if (Math.random() < 0.5) {
+    balance += winAmount;
+    alert("🎉 You Win");
   } else {
-    alert("😢 Dice Lose ৳100");
+    balance -= cost;
+    alert("😢 You Lose");
   }
-  updateBalance();
+  save();
 }
 
-// 🔴 Color Game
-function colorGame() {
-  if (balance < 50) return alert("❌ Insufficient balance");
-  balance -= 50;
-  if (Math.random() > 0.6) noteWin(100);
-  else alert("😢 Color Lose ৳50");
-  updateBalance();
-}
+function dice() { play(100, 200); }
+function color() { play(50, 100); }
+function spin() { play(200, 400); }
 
-// 🎡 Spin Game
-function spinGame() {
-  if (balance < 30) return alert("❌ Insufficient balance");
-  balance -= 30;
-  let win = [0, 50, 100, 200][Math.floor(Math.random() * 4)];
-  if (win > 0) {
-    balance += win;
-    alert("🎉 Spin Win ৳" + win);
-  } else alert("😢 Spin Lose");
-  updateBalance();
-}
-
-// Wallet
 function deposit() {
   balance += 500;
-  alert("✅ Deposit ৳500");
-  updateBalance();
+  save();
 }
 
 function withdraw() {
-  if (balance < 500) return alert("❌ Minimum ৳500");
+  if (balance < 500) return alert("Min withdraw ৳500");
   balance -= 500;
-  alert("✅ Withdraw Requested");
-  updateBalance();
+  save();
 }
 
-// Admin
-function resetBalance() {
-  let pass = document.getElementById("adminPass").value;
-  if (pass === "admin123") {
-    balance = 500;
-    updateBalance();
-    alert("🔐 Balance Reset");
-  } else alert("❌ Wrong Password");
+function logout() {
+  localStorage.removeItem("currentUser");
+  location.href = "login.html";
 }
