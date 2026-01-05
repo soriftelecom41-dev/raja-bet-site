@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>RAJA BET</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>RAJA BET</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<<div class="games">
-  <button onclick="diceGame()">🎲 Dice</button>
-  <button onclick="colorGame()">🔴 Color</button>
-  <button onclick="spinGame()">🎰 Spin</button>
-</div>
 
-<br>
+<body>
 
-<button onclick="deposit()">➕ Deposit</button>
-<button onclick="withdraw()">➖ Withdraw</button>
+  <div class="top">RAJA BET</div>
 
-<br><br>
+  <div class="banner">Welcome Bonus ৳500</div>
 
-<input type="password" id="adminPass" placeholder="Admin password">
-<button onclick="adminReset()">Admin Reset</button>
+  <div class="balance">
+    Balance: ৳<span id="balance">0</span>
+  </div>
 
-<script src="script.js"></script>>
+  <div class="games">
+    <button onclick="diceGame()">🎲 Dice</button>
+    <button onclick="colorGame()">🔴 Color</button>
+    <button onclick="spinGame()">🎰 Spin</button>
+  </div>
 
-<div class="top">RAJA BET</div>
+  <br>
 
-<div class="banner">Welcome Bonus ৳500</div>
+  <div class="wallet">
+    <button onclick="deposit()">➕ Deposit</button>
+    <button onclick="withdraw()">➖ Withdraw</button>
+  </div>
 
-<div class="balance">
-Balance: ৳<span id="balance">0</span>
-</div>
+  <br><br>
 
-<div class="games">
-<button onclick="diceGame()">🎲 Dice</button>
-<button onclick="colorGame()">🔴 Color</button>
-<button onclick="spinGame()">🎡 Spin</button>
-</div>
+  <div class="admin">
+    <input type="password" id="adminPass" placeholder="Admin password">
+    <button onclick="adminReset()">Admin Reset</button>
+  </div>
 
-<div class="wallet">
-<button onclick="deposit()">➕ Deposit</button>
-<button onclick="withdraw()">➖ Withdraw</button>
-</div>
-
-<div class="admin">
-<input type="password" id="adminPass" placeholder="Admin password">
-<button onclick="resetBalance()">Admin Reset</button>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
