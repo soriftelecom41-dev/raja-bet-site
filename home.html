@@ -3,32 +3,37 @@
 <head>
   <title>RAJA BET - Home</title>
 </head>
-
 <body>
 
 <script>
-// login check
-if (localStorage.getItem("login") !== "yes") {
+const user = localStorage.getItem("currentUser");
+if(!user){
   location.href = "login.html";
 }
 
+// load user data
+let data = JSON.parse(localStorage.getItem("user_" + user));
+
 // set balance first time
-if (!localStorage.getItem("balance")) {
-  localStorage.setItem("balance", 500);
+if(!data.balance){
+  data.balance = 500;
+  localStorage.setItem("user_" + user, JSON.stringify(data));
 }
 </script>
 
-<h1>🎰 RAJA BET</h1>
+<h1>👑 RAJA BET</h1>
 <p>Balance: <span id="bal"></span> ৳</p>
 
 <button onclick="logout()">Logout</button>
 
 <script>
-document.getElementById("bal").innerText =
-  localStorage.getItem("balance");
+const user2 = localStorage.getItem("currentUser");
+const data2 = JSON.parse(localStorage.getItem("user_" + user2));
+
+document.getElementById("bal").innerText = data2.balance;
 
 function logout(){
-  localStorage.removeItem("login");
+  localStorage.removeItem("currentUser");
   location.href = "login.html";
 }
 </script>
