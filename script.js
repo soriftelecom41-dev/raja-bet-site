@@ -1,46 +1,71 @@
+// ===== User Check =====
 const currentUser = localStorage.getItem("currentUser");
 if (!currentUser) location.href = "login.html";
 
+// ===== Load User =====
 const userText = document.getElementById("user");
 const balanceText = document.getElementById("balance");
 
 userText.innerText = currentUser;
 
-let user = JSON.parse(localStorage.getItem("user_"+currentUser));
+let user = JSON.parse(localStorage.getItem("user_" + currentUser));
+if (!user) {
+  user = { balance: 500 };
+}
+
 let balance = user.balance;
 balanceText.innerText = balance;
 
+// ===== Save =====
 function save() {
   user.balance = balance;
-  localStorage.setItem("user_"+currentUser, JSON.stringify(user));
+  localStorage.setItem("user_" + currentUser, JSON.stringify(user));
   balanceText.innerText = balance;
 }
 
-function play(cost, winAmount) {
-  if (balance < cost) return alert("Low balance");
+// ===== Games =====
+function diceGame() {
+  play(50, 50, "🎲 Dice");
+}
+
+function colorGame() {
+  play(50, 50, "🔴 Color");
+}
+
+function spinGame() {
+  play(50, 100, "🎡 Spin");
+}
+
+function play(cost, winAmount, name) {
+  if (balance < cost) {
+    alert("❌ Low balance");
+    return;
+  }
 
   if (Math.random() < 0.5) {
     balance += winAmount;
-    alert("🎉 You Win");
+    alert("🎉 " + name + " Win");
   } else {
     balance -= cost;
-    alert("😢 You Lose");
+    alert("😢 " + name + " Lose");
   }
   save();
 }
 
-function dice() { play(100, 200); }
-function color() { play(50, 100); }
-function spin() { play(200, 400); }
-
+// ===== Deposit / Withdraw (Demo) =====
 function deposit() {
   balance += 500;
+  alert("💰 Deposit ৳500");
   save();
 }
 
 function withdraw() {
-  if (balance < 500) return alert("Min withdraw ৳500");
-  balance -= 500;
+  if (balance < 100) {
+    alert("❌ Minimum ৳100");
+    return;
+  }
+  balance -= 100;
+  alert("💸 Withdraw ৳100");
   save();
 }
 
