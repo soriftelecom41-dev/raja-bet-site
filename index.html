@@ -27,28 +27,46 @@
 </div>
 
 <script>
-
 let users = JSON.parse(localStorage.getItem("users")) || {};
 let currentUser = localStorage.getItem("currentUser");
 
+if(!currentUser){
+  alert("Please login first");
+  window.location.href = "login.html";
+}
+
 let bal = users[currentUser]?.balance || 0;
-document.getElementById("bal").innerText = bal; = bal;
+document.getElementById("bal").innerText = bal;
 
 function deposit(){
   let amt = prompt("Deposit amount");
   if(!amt) return;
-  let req = JSON.parse(localStorage.getItem("requests")||"[]");
-  req.push({type:"deposit",amount:Number(amt),status:"pending"});
-  localStorage.setItem("requests",JSON.stringify(req));
+
+  let req = JSON.parse(localStorage.getItem("requests")) || [];
+  req.push({
+    user: currentUser,
+    type: "deposit",
+    amount: Number(amt),
+    status: "pending"
+  });
+
+  localStorage.setItem("requests", JSON.stringify(req));
   alert("Deposit request sent");
 }
 
 function withdraw(){
   let amt = prompt("Withdraw amount");
   if(!amt) return;
-  let req = JSON.parse(localStorage.getItem("requests")||"[]");
-  req.push({type:"withdraw",amount:Number(amt),status:"pending"});
-  localStorage.setItem("requests",JSON.stringify(req));
+
+  let req = JSON.parse(localStorage.getItem("requests")) || [];
+  req.push({
+    user: currentUser,
+    type: "withdraw",
+    amount: Number(amt),
+    status: "pending"
+  });
+
+  localStorage.setItem("requests", JSON.stringify(req));
   alert("Withdraw request sent");
 }
 </script>
