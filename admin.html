@@ -68,8 +68,33 @@ document.getElementById("approved").innerHTML = approvedHTML;
 
 /* ===== APPROVE FUNCTION ===== */
 function approve(i){
-  reqs[i].status = "approved";
+  let reqs = JSON.parse(localStorage.getItem("requests")) || [];
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  let r = reqs[i];
+
+  if(r.status === "approved"){
+    alert("Already approved");
+    return;
+  }
+
+  if(!users[r.user]){
+    users[r.user] = { balance: 0 };
+  }
+
+  if(r.type === "deposit"){
+    users[r.user].balance += r.amount;
+  }
+
+  if(r.type === "withdraw"){
+    users[r.user].balance -= r.amount;
+  }
+
+  r.status = "approved";
+
   localStorage.setItem("requests", JSON.stringify(reqs));
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Approved successfully");
   location.reload();
 }
 </script>
