@@ -27,8 +27,12 @@
 </div>
 
 <script>
-let bal = Number(localStorage.getItem("balance")||0);
-document.getElementById("bal").innerText = bal;
+
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser = localStorage.getItem("currentUser");
+
+let bal = users[currentUser]?.balance || 0;
+document.getElementById("bal").innerText = bal; = bal;
 
 function deposit(){
   let amt = prompt("Deposit amount");
