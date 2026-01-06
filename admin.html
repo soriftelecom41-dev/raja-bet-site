@@ -9,47 +9,87 @@
 <h2 style="text-align:center">ADMIN PANEL</h2>
 
 <div id="list" style="padding:15px"></div>
+<hr>
+<h3 style="text-align:center">Approved History</h3>
+<div id="approved"></div>
 
 <script>
 let reqs = JSON.parse(localStorage.getItem("requests")) || [];
-let html = "";
 
-if(reqs.length === 0){
-  html = "<p>No requests</p>";
-}
+/* ================= PENDING REQUESTS ================= */
+let pendingHTML = "";
 
-reqs.forEach((r,i)=>{
-  html += `
-    <div style="margin:10px;padding:10px;border:1px solid #ccc">
-      <b>Type:</b> ${r.type}<br>
-      <b>Amount:</b> ৳${r.amount}<br>
-      <b>Status:</b> ${r.status}<br><br>
-      <button onclick="approve(${i})">Approve</button>
-    </div>
-  `;
+reqs.forEach((r, i) => {
+  if (r.status === "pending") {
+    pendingHTML += `
+      <div style="margin:10px;padding:10px;border:1px solid #ccc">
+        <b>User:</b> ${r.user}<br>
+        <b>Type:</b> ${r.type}<br>
+        <b>Amount:</b> ${r.amount}<br>
+        <b>Status:</b> ${r.status}<br>
+        <button onclick="approve(${i})">Approve</button>
+      </div>
+    `;
+  }
 });
 
-document.getElementById("list").innerHTML = html;
+if (pendingHTML === "") {
+  pendingHTML = "<p>No pending requests</p>";
+}
 
+document.getElementById("list").innerHTML = pendingHTML;
+
+/* ================= APPROVED HISTORY ================= */
+let approvedHTML = "";
+
+reqs.forEach(r => {
+  if (r.status === "approved") {
+    approvedHTML += `
+      <div style="margin:10px;padding:10px;border:1px solid green">
+        <b>User:</b> ${r.user}<br>
+        <b>Type:</b> ${r.type}<br>
+        <b>Amount:</b> ${r.amount}<br>
+        <b>Status:</b> ${r.status}
+      </div>
+    `;
+  }
+});
+
+if (approvedHTML === "") {
+  approvedHTML = "<p>No approved requests</p>";
+}
+
+document.getElementById("approved").innerHTML = approvedHTML;
+
+/* ================= APPROVE FUNCTION ================= */
 function approve(i){
-  let bal = Number(localStorage.getItem("balance") || 0);
+  let users = JSON.parse(localStorage.getItem("users")) || {};
   let r = reqs[i];
 
-  if(r.status === "approved"){
+  if (r.status === "approved") {
     alert("Already approved");
     return;
   }
 
-  if(r.type === "deposit") bal += r.amount;
-  if(r.type === "withdraw") bal -= r.amount;
+  if (!users[r.user]) {
+    alert("User not found");
+    return;
+  }
 
-  localStorage.setItem("balance", bal);
+  if (r.type === "deposit") {
+    users[r.user].balance += r.amount;
+  } else if (r.type === "withdraw") {
+    users[r.user].balance -= r.amount;
+  }
+
   r.status = "approved";
+
+  localStorage.setItem("users", JSON.stringify(users));
   localStorage.setItem("requests", JSON.stringify(reqs));
-  alert("Approved");
+
+  alert("Approved successfully");
   location.reload();
 }
 </script>
-
 </body>
 </html>
