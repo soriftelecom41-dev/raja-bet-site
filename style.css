@@ -1,83 +1,91 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0b0f1a;
+  background: #111;
   color: #fff;
 }
 
-.header {
-  background: linear-gradient(90deg, #f9a825, #ff6f00);
-  padding: 15px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #000;
+/* TOP BAR */
+.topbar {
+  background: #1c1c1c;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.balance-box {
-  margin: 15px;
-  padding: 15px;
-  background: #11162a;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 10px #000;
-}
-
-.balance-box span {
-  color: #f9a825;
+.logo {
+  color: #f5a623;
   font-size: 20px;
   font-weight: bold;
 }
 
-.games {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  padding: 15px;
+/* BANNER */
+.banner {
+  margin: 10px;
+  height: 140px;
+  background: linear-gradient(120deg,#f5a623,#ff5722);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.game {
-  background: #161c35;
-  border-radius: 12px;
-  padding: 20px;
+.banner-text {
   text-align: center;
-  font-size: 18px;
+  color: #000;
+}
+
+/* CATEGORY */
+.categories {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.cat {
+  background: #222;
+  padding: 10px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* GAMES */
+.games {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 12px;
+}
+
+.game-card {
+  background: #1f1f1f;
+  padding: 25px 10px;
+  text-align: center;
+  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 0 8px #000;
   transition: 0.2s;
 }
 
-.game:hover {
+.game-card:hover {
+  background: #2a2a2a;
   transform: scale(1.05);
-  background: #1f2750;
 }
 
-.buttons {
-  padding: 15px;
+/* BOTTOM */
+.bottom {
   display: flex;
   gap: 10px;
+  padding: 12px;
 }
 
-button {
+.bottom button {
   flex: 1;
   padding: 12px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  background: #f5a623;
   cursor: pointer;
-}
-
-.deposit {
-  background: #2e7d32;
-  color: #fff;
-}
-
-.withdraw {
-  background: #c62828;
-  color: #fff;
-}
-
-.logout {
-  background: #f9a825;
-  color: #000;
 }
