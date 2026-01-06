@@ -14,13 +14,20 @@
 <div id="approved"></div>
 
 <script>
+/* ===== ADMIN LOGIN CHECK ===== */
+if(localStorage.getItem("adminLoggedIn") !== "true"){
+  alert("Admin login required");
+  window.location.href = "admin-login.html";
+}
+
+/* ===== GET REQUESTS ===== */
 let reqs = JSON.parse(localStorage.getItem("requests")) || [];
 
-/* ================= PENDING REQUESTS ================= */
+/* ===== PENDING REQUESTS ===== */
 let pendingHTML = "";
 
 reqs.forEach((r, i) => {
-  if (r.status === "pending") {
+  if(r.status === "pending"){
     pendingHTML += `
       <div style="margin:10px;padding:10px;border:1px solid #ccc">
         <b>User:</b> ${r.user}<br>
@@ -33,17 +40,16 @@ reqs.forEach((r, i) => {
   }
 });
 
-if (pendingHTML === "") {
+if(pendingHTML === ""){
   pendingHTML = "<p>No pending requests</p>";
 }
-
 document.getElementById("list").innerHTML = pendingHTML;
 
-/* ================= APPROVED HISTORY ================= */
+/* ===== APPROVED HISTORY ===== */
 let approvedHTML = "";
 
 reqs.forEach(r => {
-  if (r.status === "approved") {
+  if(r.status === "approved"){
     approvedHTML += `
       <div style="margin:10px;padding:10px;border:1px solid green">
         <b>User:</b> ${r.user}<br>
@@ -55,41 +61,18 @@ reqs.forEach(r => {
   }
 });
 
-if (approvedHTML === "") {
+if(approvedHTML === ""){
   approvedHTML = "<p>No approved requests</p>";
 }
-
 document.getElementById("approved").innerHTML = approvedHTML;
 
-/* ================= APPROVE FUNCTION ================= */
+/* ===== APPROVE FUNCTION ===== */
 function approve(i){
-  let users = JSON.parse(localStorage.getItem("users")) || {};
-  let r = reqs[i];
-
-  if (r.status === "approved") {
-    alert("Already approved");
-    return;
-  }
-
-  if (!users[r.user]) {
-    alert("User not found");
-    return;
-  }
-
-  if (r.type === "deposit") {
-    users[r.user].balance += r.amount;
-  } else if (r.type === "withdraw") {
-    users[r.user].balance -= r.amount;
-  }
-
-  r.status = "approved";
-
-  localStorage.setItem("users", JSON.stringify(users));
+  reqs[i].status = "approved";
   localStorage.setItem("requests", JSON.stringify(reqs));
-
-  alert("Approved successfully");
   location.reload();
 }
 </script>
+
 </body>
 </html>
