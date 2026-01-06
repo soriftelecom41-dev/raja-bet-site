@@ -1,1 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body style="background:black;color:white;text-align:center">
 
+<h2>Login</h2>
+
+<input id="u" placeholder="Username"><br><br>
+<input id="p" type="password" placeholder="Password"><br><br>
+
+<button onclick="go()">Login</button>
+
+<script>
+function go(){
+  if(u.value==="admin" && p.value==="admin"){
+    location.href="admin.html";
+  }else{
+    location.href="game.html";
+  }
+}
+</script>
+
+</body>
+</html>
