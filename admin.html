@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAJA BET - Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h2 style="text-align:center">ADMIN PANEL</h2>
+
+<div id="list" style="padding:15px"></div>
+
+<script>
+let reqs = JSON.parse(localStorage.getItem("requests")) || [];
+let html = "";
+
+if(reqs.length === 0){
+  html = "<p>No requests</p>";
+}
+
+reqs.forEach((r,i)=>{
+  html += `
+    <div style="margin:10px;padding:10px;border:1px solid #ccc">
+      <b>Type:</b> ${r.type}<br>
+      <b>Amount:</b> ৳${r.amount}<br>
+      <b>Status:</b> ${r.status}<br><br>
+      <button onclick="approve(${i})">Approve</button>
+    </div>
+  `;
+});
+
+document.getElementById("list").innerHTML = html;
+
+function approve(i){
+  let bal = Number(localStorage.getItem("balance") || 0);
+  let r = reqs[i];
+
+  if(r.status === "approved"){
+    alert("Already approved");
+    return;
+  }
+
+  if(r.type === "deposit") bal += r.amount;
+  if(r.type === "withdraw") bal -= r.amount;
+
+  localStorage.setItem("balance", bal);
+  r.status = "approved";
+  localStorage.setItem("requests", JSON.stringify(reqs));
+  alert("Approved");
+  location.reload();
+}
+</script>
+
+</body>
+</html>
