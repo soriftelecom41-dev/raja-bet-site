@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>RAJA BET - Game</title>
-<style>
-body{background:#000;color:white;text-align:center}
-button{padding:10px 20px;background:orange;border:none}
-</style>
+  <title>Dice Game</title>
+  <style>
+    body{
+      background:#000;
+      color:#fff;
+      font-family:Arial;
+      text-align:center;
+      padding-top:50px;
+    }
+    button{
+      padding:12px 25px;
+      font-size:16px;
+      border:none;
+      border-radius:6px;
+      background:orange;
+      cursor:pointer;
+      margin-top:15px;
+    }
+    .box{
+      margin-top:20px;
+      font-size:18px;
+    }
+    a{color:lightgreen}
+  </style>
 </head>
 <body>
 
-<h2>🎲 Dice Game</h2>
-<p>Bet ৳10 → Win ৳20</p>
+  <h1>🎲 Dice Game</h1>
+  <p>Bet: ৳10 | Win: ৳20</p>
 
-<button onclick="play()">Roll Dice</button>
+  <div class="box">Balance: ৳<span id="bal">0</span></div>
+  <div class="box" id="dice">🎲</div>
+  <div class="box" id="result"></div>
 
-<script>
-function play(){
-  let bal = Number(localStorage.getItem("balance")||0);
-  if(bal < 10){ alert("Low balance"); return;}
-  let win = Math.random() > 0.5;
-  bal += win ? 10 : -10;
-  localStorage.setItem("balance",bal);
-  alert(win ? "🎉 You Win" : "❌ You Lose");
-}
-</script>
+  <button onclick="rollDice()">Roll Dice</button>
+  <br><br>
+  <a href="index.html">← Back</a>
 
-<br><br>
-<a href="index.html" style="color:lightgreen">⬅ Back</a>
+  <script src="game.js"></script>
 </body>
 </html>
