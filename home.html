@@ -6,71 +6,47 @@
 </head>
 <body>
 
-<script>
-const user = localStorage.getItem("currentUser");
-if (!user) location.href = "login.html";
-
-let data = JSON.parse(localStorage.getItem("user_" + user));
-if (!data) {
-  data = { balance: 500 };
-  localStorage.setItem("user_" + user, JSON.stringify(data));
-}
-</script>
-
-<div class="header">RAJA BET</div>
-
-<div class="balance-box">
-  Welcome Bonus ₹500 <br><br>
-  Balance: ₹ <span id="bal">0</span>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">RAJA BET</div>
+  <div class="menu">☰</div>
 </div>
 
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-text">
+    <h2>WELCOME BONUS ৳500</h2>
+    <p>Demo Version</p>
+  </div>
+</div>
+
+<!-- CATEGORY -->
+<div class="categories">
+  <div class="cat">🎮 Slot</div>
+  <div class="cat">🎰 Casino</div>
+  <div class="cat">⚽ Sports</div>
+  <div class="cat">🚀 Crash</div>
+</div>
+
+<!-- GAME GRID -->
 <div class="games">
-  <div class="game" onclick="play('Lucky 7')">🎰 Lucky 7</div>
-  <div class="game" onclick="play('Dice')">🎲 Dice</div>
-  <div class="game" onclick="play('Spin')">🎡 Spin</div>
-  <div class="game" onclick="play('Color')">🎨 Color</div>
+  <div class="game-card" onclick="play('Lucky 7')">🍀 Lucky 7</div>
+  <div class="game-card" onclick="play('Dice')">🎲 Dice</div>
+  <div class="game-card" onclick="play('Spin')">🎡 Spin</div>
+  <div class="game-card" onclick="play('Color')">🔴 Color</div>
+  <div class="game-card" onclick="play('Super Ace')">🂡 Super Ace</div>
+  <div class="game-card" onclick="play('Crash')">🚀 Crash</div>
 </div>
 
-<div class="buttons">
-  <button class="deposit" onclick="deposit()">Deposit</button>
-  <button class="withdraw" onclick="withdraw()">Withdraw</button>
-  <button class="logout" onclick="logout()">Logout</button>
+<!-- BOTTOM BAR -->
+<div class="bottom">
+  <button onclick="alert('Demo Deposit')">➕ Deposit</button>
+  <button onclick="alert('Demo Withdraw')">➖ Withdraw</button>
 </div>
 
 <script>
-document.getElementById("bal").innerText = data.balance;
-
-function play(name) {
-  let win = Math.random() > 0.5;
-  let amt = win ? 50 : -30;
-  data.balance += amt;
-  if (data.balance < 0) data.balance = 0;
-  localStorage.setItem("user_" + user, JSON.stringify(data));
-  document.getElementById("bal").innerText = data.balance;
-  alert(name + (win ? " WIN ₹50" : " LOSE ₹30"));
-}
-
-function deposit() {
-  let amt = Number(prompt("Enter deposit amount"));
-  if (amt > 0) {
-    data.balance += amt;
-    localStorage.setItem("user_" + user, JSON.stringify(data));
-    document.getElementById("bal").innerText = data.balance;
-  }
-}
-
-function withdraw() {
-  let amt = Number(prompt("Enter withdraw amount"));
-  if (amt > 0 && amt <= data.balance) {
-    data.balance -= amt;
-    localStorage.setItem("user_" + user, JSON.stringify(data));
-    document.getElementById("bal").innerText = data.balance;
-  }
-}
-
-function logout() {
-  localStorage.removeItem("currentUser");
-  location.href = "login.html";
+function play(name){
+  alert(name + " demo game");
 }
 </script>
 
