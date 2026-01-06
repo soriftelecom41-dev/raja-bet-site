@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAJA BET</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="top-bar">
+  <div class="logo">RAJA BET</div>
+  <div class="balance">৳ <span id="bal">0</span></div>
+</div>
+
+<div class="banner">
+  <h2>Welcome Bonus ৳500</h2>
+</div>
+
+<div class="games">
+  <div class="game" onclick="playGame('Lucky 7')">🎰 Lucky 7</div>
+  <div class="game" onclick="playGame('Dice')">🎲 Dice</div>
+  <div class="game" onclick="playGame('Spin')">🎡 Spin</div>
+  <div class="game" onclick="playGame('Color')">🔴 Color</div>
+</div>
+
+<div class="actions">
+  <button onclick="deposit()">➕ Deposit</button>
+  <button onclick="withdraw()">➖ Withdraw</button>
+  <button onclick="logout()">🚪 Logout</button>
+</div>
+
+<script src="auth.js"></script>
+<script src="balance.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
