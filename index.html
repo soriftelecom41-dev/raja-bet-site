@@ -1,30 +1,53 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>RAJA BET</title>
   <style>
-    body{
-      background:black;
-      color:white;
-      text-align:center;
-      font-family:Arial;
-    }
-    a{
-      display:inline-block;
-      padding:12px 20px;
-      background:green;
-      color:white;
-      text-decoration:none;
-      margin-top:20px;
-    }
+    body{background:#111;color:white;font-family:Arial;text-align:center}
+    .card{background:#222;margin:10px;padding:15px;border-radius:10px}
+    button{padding:10px 20px;margin:5px;border:none;border-radius:5px}
+    .green{background:green;color:white}
+    .red{background:red;color:white}
+    .yellow{background:orange}
   </style>
 </head>
 <body>
 
-  <h1>RAJA BET</h1>
-  <p>Site is working successfully ✅</p>
+<h1>RAJA BET</h1>
+<h3>Balance: ৳ <span id="bal">0</span></h3>
 
-  <a href="login.html">Login</a>
+<div class="card">
+  <button class="green" onclick="deposit()">Deposit</button>
+  <button class="red" onclick="withdraw()">Withdraw</button>
+</div>
+
+<div class="card">
+  <a href="game.html"><button class="yellow">🎮 Play Game</button></a>
+</div>
+
+<script>
+let bal = Number(localStorage.getItem("balance")||0);
+document.getElementById("bal").innerText = bal;
+
+function deposit(){
+  let amt = prompt("Deposit amount");
+  if(!amt) return;
+  let req = JSON.parse(localStorage.getItem("requests")||"[]");
+  req.push({type:"deposit",amount:Number(amt),status:"pending"});
+  localStorage.setItem("requests",JSON.stringify(req));
+  alert("Deposit request sent");
+}
+
+function withdraw(){
+  let amt = prompt("Withdraw amount");
+  if(!amt) return;
+  let req = JSON.parse(localStorage.getItem("requests")||"[]");
+  req.push({type:"withdraw",amount:Number(amt),status:"pending"});
+  localStorage.setItem("requests",JSON.stringify(req));
+  alert("Withdraw request sent");
+}
+</script>
 
 </body>
 </html>
