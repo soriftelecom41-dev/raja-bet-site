@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
-<body style="background:black;color:white;text-align:center">
+<head>
+  <title>Login</title>
+  <style>
+    body{background:#111;color:white;text-align:center;font-family:Arial}
+    input,button{padding:10px;margin:5px}
+  </style>
+</head>
+<body>
 
 <h2>Login</h2>
-
-<input id="u" placeholder="Username"><br><br>
-<input id="p" type="password" placeholder="Password"><br><br>
-
-<button onclick="go()">Login</button>
+<input id="username" placeholder="Enter username"><br>
+<button onclick="login()">Login</button>
 
 <script>
-function go(){
-  if(u.value==="admin" && p.value==="admin"){
-    location.href="admin.html";
-  }else{
-    location.href="game.html";
+function login(){
+  let username = document.getElementById("username").value;
+  if(!username){ alert("Username required"); return; }
+
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if(!users[username]){
+    users[username] = { balance: 0 };
   }
+
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("currentUser", username);
+  window.location.href = "index.html";
 }
 </script>
 
