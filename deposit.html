@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deposit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h2>Deposit Request</h2>
+
+<select id="method">
+  <option>bKash</option>
+  <option>Nagad</option>
+  <option>Rocket</option>
+</select>
+
+<input type="number" id="amount" placeholder="Amount">
+<input type="text" id="trx" placeholder="Transaction ID">
+
+<button onclick="sendDeposit()">Submit</button>
+
+<script>
+function sendDeposit(){
+  let req = {
+    type: "deposit",
+    method: method.value,
+    amount: Number(amount.value),
+    trx: trx.value,
+    status: "pending"
+  };
+
+  let list = JSON.parse(localStorage.getItem("requests")) || [];
+  list.push(req);
+  localStorage.setItem("requests", JSON.stringify(list));
+  alert("Deposit request sent");
+}
+</script>
+
+</body>
+</html>
