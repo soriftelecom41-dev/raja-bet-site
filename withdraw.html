@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Withdraw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<h2>Withdraw Request</h2>
+
+<input type="number" id="amount" placeholder="Amount">
+<input type="text" id="number" placeholder="bKash/Nagad Number">
+
+<button onclick="sendWithdraw()">Submit</button>
+
+<script>
+function sendWithdraw(){
+  let req = {
+    type: "withdraw",
+    amount: Number(amount.value),
+    number: number.value,
+    status: "pending"
+  };
+
+  let list = JSON.parse(localStorage.getItem("requests")) || [];
+  list.push(req);
+  localStorage.setItem("requests", JSON.stringify(list));
+  alert("Withdraw request sent");
+}
+</script>
+
+</body>
+</html>
