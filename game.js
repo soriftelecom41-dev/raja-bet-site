@@ -1,71 +1,43 @@
-// ===== USER CHECK =====
-const user = localStorage.getItem("currentUser");
-if (!user) location.href = "login.html";
+// ===== LOGIN CHECK =====
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser = localStorage.getItem("currentUser");
 
-// ===== LOAD DATA =====
-let data = JSON.parse(localStorage.getItem("user_" + user)) || { balance: 500 };
+if (!currentUser || !users[currentUser]) {
+  alert("Please login first");
+  window.location.href = "login.html";
+}
+
+// ===== LOAD BALANCE =====
+let balance = users[currentUser].balance || 0;
+document.getElementById("bal").innerText = balance;
 
 // ===== UPDATE BALANCE =====
 function updateBalance() {
-  document.getElementById("bal").innerText = data.balance;
-  localStorage.setItem("user_" + user, JSON.stringify(data));
-}
-updateBalance();
-
-// ===== POPUP =====
-function popup(msg) {
-  alert(msg);
+  users[currentUser].balance = balance;
+  localStorage.setItem("users", JSON.stringify(users));
+  document.getElementById("bal").innerText = balance;
 }
 
-// ===== RANDOM =====
-function chance(percent) {
-  return Math.random() * 100 < percent;
-}
+// ===== ROLL DICE GAME =====
+function rollDice() {
+  let bet = 10;
 
-// ===== PLAY GAME =====
-function play(game) {
-  let bet = 30;
-  if (data.balance < bet) {
-    popup("❌ Balance কম!");
+  if (balance < bet) {
+    document.getElementById("result").innerText = "❌ Not enough balance";
     return;
   }
 
-  data.balance -= bet;
+  balance -= bet;
 
-  let win = chance(45); // 45% win chance
-  let reward = bet * 2;
+  let dice = Math.floor(Math.random() * 6) + 1;
+  document.getElementById("dice").innerText = "🎲 " + dice;
 
-  if (win) {
-    data.balance += reward;
-    popup(`🎉 ${game} WIN!\n+৳${reward}`);
+  if (dice >= 4) {
+    balance += 20;
+    document.getElementById("result").innerText = "✅ You Win! +৳20";
   } else {
-    popup(`😢 ${game} LOSE!\n-৳${bet}`);
+    document.getElementById("result").innerText = "❌ You Lose!";
   }
 
-  if (data.balance < 0) data.balance = 0;
   updateBalance();
-}
-
-// ===== ACTIONS =====
-function deposit() {
-  let amt = Number(prompt("Deposit amount:"));
-  if (amt > 0) {
-    data.balance += amt;
-    updateBalance();
-    popup("✅ Deposit successful");
-  }
-}
-
-function withdraw() {
-  let amt = Number(prompt("Withdraw amount:"));
-  if (amt > 0 && amt <= data.balance) {
-    data.balance -= amt;
-    updateBalance();
-    popup("✅ Withdraw successful");
-  }
-}
-
-function logout() {
-  localStorage.removeItem("currentUser");
-  location.href = "login.html";
 }
