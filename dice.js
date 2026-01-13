@@ -1,31 +1,44 @@
-let balance = parseInt(localStorage.getItem("balance")) || 1000;
+const user = localStorage.getItem("currentUser");
+if(!user) location.href="login.html";
 
-// show balance
-document.getElementById("bal").innerText = balance;
+let data = JSON.parse(localStorage.getItem("user_"+user)) || {balance:500};
+const bal = document.getElementById("bal");
+const dice = document.getElementById("dice");
+const result = document.getElementById("result");
 
-function rollDice() {
-  if (balance < 10) {
-    alert("Not enough balance");
+function update(){
+  bal.innerText = data.balance;
+  localStorage.setItem("user_"+user, JSON.stringify(data));
+}
+update();
+
+function roll(){
+  if(data.balance < 10){
+    alert("❌ Balance কম");
     return;
   }
 
-  // bet
-  balance -= 10;
+  data.balance -= 10;
+  update();
 
-  // dice roll (1–6)
-  let dice = Math.floor(Math.random() * 6) + 1;
+  dice.className = "dice roll";
+  result.innerText = "Rolling...";
+  result.className = "";
 
-  let msg = "🎲 Dice: " + dice + " | ";
+  setTimeout(()=>{
+    dice.className = "dice";
+    let num = Math.floor(Math.random()*6)+1;
+    dice.innerText = "🎲";
 
-  if (dice >= 4) {
-    balance += 20;
-    msg += "You WIN +20";
-  } else {
-    msg += "You LOSE -10";
-  }
+    if(num >= 4){
+      data.balance += 20;
+      result.innerText = "✅ WIN +৳20 (Dice: "+num+")";
+      result.className = "win";
+    }else{
+      result.innerText = "❌ LOSE -৳10 (Dice: "+num+")";
+      result.className = "lose";
+    }
 
-  // save + show
-  localStorage.setItem("balance", balance);
-  document.getElementById("bal").innerText = balance;
-  document.getElementById("result").innerText = msg;
+    update();
+  },1500);
 }
