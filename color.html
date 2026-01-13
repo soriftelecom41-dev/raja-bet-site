@@ -1,1 +1,57 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Color Game</title>
+<style>
+body{
+  background:#0b1220;
+  color:#fff;
+  font-family:Arial;
+  text-align:center;
+}
+.box{
+  max-width:400px;
+  margin:40px auto;
+}
+button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+}
+.red{background:#e53935}
+.green{background:#43a047}
+.violet{background:#8e24aa}
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  font-size:16px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>🎨 Color Game</h2>
+
+<p>Balance: ৳<span id="bal">0</span></p>
+
+<input type="number" id="bet" placeholder="Bet Amount ৳">
+
+<button class="red" onclick="play('red')">🔴 Red</button>
+<button class="green" onclick="play('green')">🟢 Green</button>
+<button class="violet" onclick="play('violet')">🟣 Violet</button>
+
+<p id="result"></p>
+
+<a href="game.html">← Back</a>
+</div>
+
+<script src="color.js"></script>
+</body>
+</html>
