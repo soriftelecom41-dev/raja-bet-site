@@ -6,8 +6,8 @@
 body{background:#0b1220;color:#fff;font-family:Arial}
 .box{margin:50px auto;width:90%;max-width:400px}
 input,button{
-  width:100%;padding:12px;margin:10px 0;
-  border-radius:8px;border:none;font-size:16px
+ width:100%;padding:12px;margin:10px 0;
+ border-radius:8px;border:none;font-size:16px
 }
 button{background:#ff5252;color:#fff}
 </style>
@@ -18,32 +18,40 @@ button{background:#ff5252;color:#fff}
 <h2>🏧 Withdraw</h2>
 
 <input type="number" id="amount" placeholder="Amount ৳">
-<input type="text" id="number" placeholder="Bkash / Nagad Number">
+<input type="text" id="number" placeholder="bKash / Nagad Number">
 
 <button onclick="withdraw()">Submit</button>
-
-<a href="game.html">← Back</a>
+<a href="game.html" style="color:#aaa">← Back</a>
 </div>
 
 <script>
 const user = localStorage.getItem("currentUser");
-if(!user) location.href="login.html";
+if(!user){
+  location.href="login.html";
+}
 
 function withdraw(){
-  let amount = document.getElementById("amount").value;
+  let amount = Number(document.getElementById("amount").value);
   let number = document.getElementById("number").value;
 
-  if(amount<=0 || !number) return alert("সব দিন");
+  if(amount<=0 || !number) return alert("সব তথ্য দিন");
 
-  let msg = `Withdraw Request
-User: ${user}
-Amount: ৳${amount}
-Number: ${number}`;
+  let balance = Number(localStorage.getItem("balance_"+user)) || 0;
+  if(amount > balance) return alert("Balance কম আছে");
 
-  let url = "https://wa.me/8801XXXXXXXXX?text="+encodeURIComponent(msg);
-  window.open(url);
+  let withdraws = JSON.parse(localStorage.getItem("withdraws")) || [];
+  withdraws.push({
+    user: user,
+    amount: amount,
+    number: number,
+    time: Date.now()
+  });
 
-  alert("Withdraw request sent");
+  localStorage.setItem("withdraws", JSON.stringify(withdraws));
+  alert("Withdraw request sent. Admin approve করলে টাকা পাঠানো হবে");
+
+  document.getElementById("amount").value="";
+  document.getElementById("number").value="";
 }
 </script>
 
