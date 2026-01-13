@@ -31,18 +31,19 @@ if(!user){
 
 function deposit(){
   let amount = Number(document.getElementById("amount").value);
-  if(amount<=0) return alert("Amount দিন");
+  if(amount <= 0) return alert("Amount দিন");
 
-  let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-  deposits.push({
+  // depositRequests এ add হবে
+  let list = JSON.parse(localStorage.getItem("depositRequests")) || [];
+  list.push({
     user: user,
     amount: amount,
     time: Date.now()
   });
+  localStorage.setItem("depositRequests", JSON.stringify(list));
 
-  localStorage.setItem("deposits", JSON.stringify(deposits));
   alert("Deposit request sent. Admin approve করলে balance add হবে");
-  document.getElementById("amount").value="";
+  document.getElementById("amount").value = "";
 }
 </script>
 
