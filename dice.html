@@ -1,7 +1,92 @@
-<h3>Balance: ৳ <span id="bal">0</span></h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dice Game</title>
 
-<button onclick="rollDice()">🎲 Roll Dice</button>
+<style>
+body{
+  background:#0b1220;
+  color:#fff;
+  font-family:Arial;
+  text-align:center;
+}
 
-<p id="result"></p>
+.box{
+  margin-top:60px;
+}
 
-<script src="js/dice.js"></script>
+.dice{
+  font-size:80px;
+  transition:transform 0.5s;
+}
+
+.roll{
+  animation:spin 0.6s infinite;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
+.btn{
+  margin-top:20px;
+  padding:12px 30px;
+  background:#ffc107;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+}
+
+.win{
+  color:#00ff9c;
+  animation:glow 0.6s infinite alternate;
+}
+
+.lose{
+  color:#ff4d4d;
+  animation:shake 0.3s;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 5px #00ff9c}
+  to{text-shadow:0 0 20px #00ff9c}
+}
+
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
+
+.back{
+  display:block;
+  margin-top:20px;
+  color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>🎲 Dice Game</h2>
+  <p>Bet: ৳10 | Win: ৳20</p>
+  <p>Balance: ৳ <span id="bal">0</span></p>
+
+  <div id="dice" class="dice">🎲</div>
+
+  <button class="btn" onclick="roll()">Roll Dice</button>
+
+  <h3 id="result"></h3>
+
+  <a class="back" href="game.html">← Back</a>
+</div>
+
+<script src="dice.js"></script>
+</body>
+</html>
