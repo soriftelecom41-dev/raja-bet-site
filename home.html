@@ -1,33 +1,45 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>RAJA BET</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="top-bar">
-  <div class="logo">RAJA BET</div>
-  <div class="balance">৳ <span id="bal">0</span></div>
-</div>
+  <!-- HEADER -->
+  <header class="top-bar">
+    <h1>RAJA BET</h1>
+    <div class="balance">৳ <span id="balance">1310</span></div>
+  </header>
 
-<div class="banner">
-  <h2>Welcome Bonus ৳500</h2>
-</div>
+  <!-- BANNER -->
+  <div class="banner">
+    <p>🔥 Welcome to Raja Bet 🔥</p>
+  </div>
 
-<div class="game" onclick="play('Lucky 7')">🎰 Lucky 7</div>
-<div class="game" onclick="play('Dice')">🎲 Dice</div>
-<div class="game" onclick="play('Spin')">🎡 Spin</div>
-<div class="game" onclick="play('Color')">🔴 Color</div>
+  <!-- GAME LOBBY -->
+  <section class="games">
 
-<div class="actions">
-  <button onclick="deposit()">➕ Deposit</button>
-  <button onclick="withdraw()">➖ Withdraw</button>
-  <button onclick="logout()">🚪 Logout</button>
-</div>
+    <div class="game-card" onclick="goGame('dice.html')">
+      <img src="images/dice.png">
+      <h3>Dice Game</h3>
+    </div>
 
-<script src="auth.js"></script>
-<script src="balance.js"></script>
-<script src="game.js"></script>
+    <div class="game-card" onclick="goGame('color.html')">
+      <img src="images/color.png">
+      <h3>Color Prediction</h3>
+    </div>
+
+    <div class="game-card" onclick="goGame('spin.html')">
+      <img src="images/spin.png">
+      <h3>Spin Wheel</h3>
+    </div>
+
+  </section>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
