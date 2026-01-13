@@ -1,101 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RAJA BET - Admin</title>
-  <link rel="stylesheet" href="style.css">
+<title>Admin Panel</title>
+<style>
+body{background:#111;color:#fff;font-family:Arial}
+input,button{
+  width:100%;padding:10px;margin:8px 0;
+}
+button{background:#ffc107;border:none}
+</style>
 </head>
 <body>
 
-<h2 style="text-align:center">ADMIN PANEL</h2>
+<h2>👑 Admin Control</h2>
 
-<div id="list" style="padding:15px"></div>
-<hr>
-<h3 style="text-align:center">Approved History</h3>
-<div id="approved"></div>
+<input id="user" placeholder="Username">
+<input id="amount" placeholder="Amount">
+
+<button onclick="add()">Add Balance</button>
+<button onclick="cut()">Cut Balance</button>
 
 <script>
-/* ===== ADMIN LOGIN CHECK ===== */
-if(localStorage.getItem("adminLoggedIn") !== "true"){
-  alert("Admin login required");
-  window.location.href = "admin-login.html";
+function add(){
+  let u=document.getElementById("user").value;
+  let a=Number(document.getElementById("amount").value);
+  let d=JSON.parse(localStorage.getItem("user_"+u));
+  if(!d) return alert("User not found");
+  d.balance+=a;
+  localStorage.setItem("user_"+u,JSON.stringify(d));
+  alert("Balance Added");
 }
 
-/* ===== GET REQUESTS ===== */
-let reqs = JSON.parse(localStorage.getItem("requests")) || [];
-
-/* ===== PENDING REQUESTS ===== */
-let pendingHTML = "";
-
-reqs.forEach((r, i) => {
-  if(r.status === "pending"){
-    pendingHTML += `
-      <div style="margin:10px;padding:10px;border:1px solid #ccc">
-        <b>User:</b> ${r.user}<br>
-        <b>Type:</b> ${r.type}<br>
-        <b>Amount:</b> ${r.amount}<br>
-        <b>Status:</b> ${r.status}<br>
-        <button onclick="approve(${i})">Approve</button>
-      </div>
-    `;
-  }
-});
-
-if(pendingHTML === ""){
-  pendingHTML = "<p>No pending requests</p>";
-}
-document.getElementById("list").innerHTML = pendingHTML;
-
-/* ===== APPROVED HISTORY ===== */
-let approvedHTML = "";
-
-reqs.forEach(r => {
-  if(r.status === "approved"){
-    approvedHTML += `
-      <div style="margin:10px;padding:10px;border:1px solid green">
-        <b>User:</b> ${r.user}<br>
-        <b>Type:</b> ${r.type}<br>
-        <b>Amount:</b> ${r.amount}<br>
-        <b>Status:</b> ${r.status}
-      </div>
-    `;
-  }
-});
-
-if(approvedHTML === ""){
-  approvedHTML = "<p>No approved requests</p>";
-}
-document.getElementById("approved").innerHTML = approvedHTML;
-
-/* ===== APPROVE FUNCTION ===== */
-function approve(i){
-  let reqs = JSON.parse(localStorage.getItem("requests")) || [];
-  let users = JSON.parse(localStorage.getItem("users")) || {};
-  let r = reqs[i];
-
-  if(r.status === "approved"){
-    alert("Already approved");
-    return;
-  }
-
-  if(!users[r.user]){
-    users[r.user] = { balance: 0 };
-  }
-
-  if(r.type === "deposit"){
-    users[r.user].balance += r.amount;
-  }
-
-  if(r.type === "withdraw"){
-    users[r.user].balance -= r.amount;
-  }
-
-  r.status = "approved";
-
-  localStorage.setItem("requests", JSON.stringify(reqs));
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Approved successfully");
-  location.reload();
+function cut(){
+  let u=document.getElementById("user").value;
+  let a=Number(document.getElementById("amount").value);
+  let d=JSON.parse(localStorage.getItem("user_"+u));
+  if(!d) return alert("User not found");
+  d.balance-=a;
+  localStorage.setItem("user_"+u,JSON.stringify(d));
+  alert("Balance Deducted");
 }
 </script>
 
