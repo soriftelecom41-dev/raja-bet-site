@@ -6,8 +6,8 @@
 body{background:#0b1220;color:#fff;font-family:Arial}
 .box{margin:50px auto;width:90%;max-width:400px}
 input,button{
-  width:100%;padding:12px;margin:10px 0;
-  border-radius:8px;border:none;font-size:16px
+ width:100%;padding:12px;margin:10px 0;
+ border-radius:8px;border:none;font-size:16px
 }
 button{background:#00c853;color:#000}
 </style>
@@ -18,28 +18,31 @@ button{background:#00c853;color:#000}
 <h2>💰 Deposit</h2>
 
 <input type="number" id="amount" placeholder="Amount ৳">
-
 <button onclick="deposit()">Submit</button>
 
-<a href="game.html">← Back</a>
+<a href="game.html" style="color:#aaa">← Back</a>
 </div>
 
 <script>
 const user = localStorage.getItem("currentUser");
-if(!user) location.href="login.html";
+if(!user){
+  location.href="login.html";
+}
 
 function deposit(){
-  let amount = document.getElementById("amount").value;
+  let amount = Number(document.getElementById("amount").value);
   if(amount<=0) return alert("Amount দিন");
 
-  let msg = `Deposit Request
-User: ${user}
-Amount: ৳${amount}`;
+  let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+  deposits.push({
+    user: user,
+    amount: amount,
+    time: Date.now()
+  });
 
-  let url = "https://wa.me/8801318574461text="+encodeURIComponent(msg);
-  window.open(url);
-
-  alert("Request sent. Admin approve করলে balance যোগ হবে");
+  localStorage.setItem("deposits", JSON.stringify(deposits));
+  alert("Deposit request sent. Admin approve করলে balance add হবে");
+  document.getElementById("amount").value="";
 }
 </script>
 
