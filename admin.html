@@ -3,44 +3,26 @@
 <head>
 <title>Admin Panel</title>
 <style>
-body{background:#111;color:#fff;font-family:Arial}
-input,button{
-  width:100%;padding:10px;margin:8px 0;
-}
-button{background:#ffc107;border:none}
+body{font-family:Arial;background:#0f172a;color:#fff}
+.box{max-width:800px;margin:30px auto}
+.card{background:#111827;padding:15px;margin:10px 0;border-radius:8px}
+button{padding:6px 12px;margin:5px;border:none;border-radius:6px}
+.ok{background:#16a34a;color:#fff}
+.no{background:#dc2626;color:#fff}
 </style>
 </head>
 <body>
 
-<h2>👑 Admin Control</h2>
+<div class="box">
+<h2>🧑‍💼 Admin Panel</h2>
 
-<input id="user" placeholder="Username">
-<input id="amount" placeholder="Amount">
+<h3>Deposit Requests</h3>
+<div id="deposits"></div>
 
-<button onclick="add()">Add Balance</button>
-<button onclick="cut()">Cut Balance</button>
+<h3>Withdraw Requests</h3>
+<div id="withdraws"></div>
+</div>
 
-<script>
-function add(){
-  let u=document.getElementById("user").value;
-  let a=Number(document.getElementById("amount").value);
-  let d=JSON.parse(localStorage.getItem("user_"+u));
-  if(!d) return alert("User not found");
-  d.balance+=a;
-  localStorage.setItem("user_"+u,JSON.stringify(d));
-  alert("Balance Added");
-}
-
-function cut(){
-  let u=document.getElementById("user").value;
-  let a=Number(document.getElementById("amount").value);
-  let d=JSON.parse(localStorage.getItem("user_"+u));
-  if(!d) return alert("User not found");
-  d.balance-=a;
-  localStorage.setItem("user_"+u,JSON.stringify(d));
-  alert("Balance Deducted");
-}
-</script>
-
+<script src="admin.js"></script>
 </body>
 </html>
