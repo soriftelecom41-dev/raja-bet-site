@@ -1,4 +1,3 @@
-
 function goGame(page) {
   window.location.href = page;
 }
