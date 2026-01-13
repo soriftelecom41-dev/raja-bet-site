@@ -1,85 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>RAJA BET - Games</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAJA BET | Games</title>
+
 <style>
 body{
   margin:0;
+  font-family: Arial, sans-serif;
   background:#0b1220;
-  font-family:Arial;
   color:#fff;
 }
+
 .header{
-  background:linear-gradient(90deg,#ff7a00,#ffb347);
+  background:linear-gradient(90deg,#ff7a00,#ffb300);
   padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   font-weight:bold;
 }
+
+.balance{
+  background:#000;
+  padding:6px 12px;
+  border-radius:20px;
+  color:#00ff9c;
+}
+
 .tabs{
   display:flex;
   gap:10px;
   padding:10px;
+  overflow-x:auto;
 }
+
 .tab{
-  background:#1c2435;
+  background:#1c2333;
   padding:8px 14px;
-  border-radius:6px;
+  border-radius:20px;
+  white-space:nowrap;
+  font-size:14px;
 }
+
+.tab.active{
+  background:#ffc107;
+  color:#000;
+}
+
 .games{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:12px;
   padding:12px;
 }
+
 .card{
-  background:#111827;
-  border-radius:10px;
+  background:#1c2333;
+  border-radius:12px;
   overflow:hidden;
 }
+
 .card img{
   width:100%;
-  display:block;
+  height:110px;
+  object-fit:cover;
 }
+
 .card p{
-  margin:6px;
+  margin:8px;
   font-size:14px;
-  text-align:center;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">🎮 RAJA BET GAMES</div>
+<div class="header">
+  <div>RAJA BET</div>
+  <div class="balance">৳ <span id="bal">0</span></div>
+</div>
 
 <div class="tabs">
-  <div class="tab">🔥 JILI</div>
-  <div class="tab">🔥 JDB</div>
-  <div class="tab">🔥 PG</div>
+  <div class="tab active">🔥 All</div>
+  <div class="tab">🎲 Dice</div>
+  <div class="tab">🎰 Spin</div>
+  <div class="tab">🎯 Color</div>
 </div>
 
 <div class="games">
+
   <div class="card" onclick="location.href='dice.html'">
-    <img src="https://i.imgur.com/9Xn4F0k.jpg">
+    <img src="dice.png">
     <p>Dice Game</p>
   </div>
 
-  <div class="card">
-    <img src="https://i.imgur.com/3ZQ3Z9M.jpg">
-    <p>Lucky 7</p>
+  <div class="card" onclick="location.href='spin.html'">
+    <img src="spin.png">
+    <p>Spin Game</p>
   </div>
 
-  <div class="card">
-    <img src="https://i.imgur.com/w1Xq6rY.jpg">
-    <p>Spin</p>
-  </div>
-
-  <div class="card">
-    <img src="https://i.imgur.com/Vu7R6mR.jpg">
+  <div class="card" onclick="location.href='color.html'">
+    <img src="color.png">
     <p>Color Game</p>
   </div>
+
+  <div class="card">
+    <img src="https://via.placeholder.com/300x150">
+    <p>Coming Soon</p>
+  </div>
+
 </div>
+
+<script>
+const user = localStorage.getItem("currentUser");
+if(!user) location.href="login.html";
+
+const data = JSON.parse(localStorage.getItem("user_"+user)) || {balance:0};
+document.getElementById("bal").innerText = data.balance;
+</script>
 
 </body>
 </html>
