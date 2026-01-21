@@ -2,31 +2,22 @@
 <html>
 <head>
   <title>Admin Login</title>
-  <style>
-    body{background:#111;color:white;text-align:center;font-family:Arial}
-    input,button{padding:10px;margin:5px}
-    button{background:orange;border:none}
-  </style>
 </head>
-<body>
+<body style="background:#111;color:white;text-align:center">
+  <h2>🔐 Admin Login</h2>
+  <input type="password" id="pass" placeholder="Admin Password">
+  <br><br>
+  <button onclick="login()">Login</button>
 
-<h2>🔐 Admin Login</h2>
-
-<input type="password" id="pass" placeholder="Admin Password"><br>
-<button onclick="login()">Login</button>
-
-<script>
-function login(){
-  let pass = document.getElementById("pass").value;
-
-  if(pass === "admin123"){   // 🔴 password এখানে
-    localStorage.setItem("adminLoggedIn","true");
-    window.location.href = "admin.html";
-  }else{
-    alert("Wrong password");
-  }
-}
-</script>
-
+  <script>
+    function login(){
+      if(document.getElementById("pass").value === "admin123"){
+        localStorage.setItem("admin","true");
+        location.href="admin.html";
+      }else{
+        alert("Wrong password");
+      }
+    }
+  </script>
 </body>
 </html>
