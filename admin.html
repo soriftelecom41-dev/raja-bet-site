@@ -2,28 +2,20 @@
 <html>
 <head>
   <title>Admin Panel</title>
-  <style>
-    body{background:#0b1220;color:#fff;font-family:Arial}
-    .box{max-width:500px;margin:30px auto}
-    .item{background:#111;margin:10px 0;padding:10px;border-radius:6px}
-    button{padding:6px 10px;margin:5px;border:none;border-radius:4px}
-    .ok{background:green;color:#fff}
-    .no{background:red;color:#fff}
-  </style>
 </head>
-<body>
+<body style="background:#0b1220;color:white;text-align:center">
 
-<div class="box">
-  <h2>🧑‍💼 Admin Panel</h2>
+<h2>⚙️ Admin Panel</h2>
 
-  <h3>Deposit Requests</h3>
-  <div id="deposits"></div>
+<p>User Balance:</p>
+<input type="number" id="bal" placeholder="Enter amount">
 
-  <h3>Withdraw Requests</h3>
-  <div id="withdraws"></div>
+<br><br>
+<button onclick="add()">➕ Add Balance</button>
+<button onclick="reset()">♻ Reset Balance</button>
 
-  <a href="index.html">⬅ Back</a>
-</div>
+<br><br>
+<button onclick="logout()">🚪 Logout</button>
 
 <script src="admin.js"></script>
 </body>
