@@ -1,74 +1,122 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-  <title>RAJA BET</title>
+  <meta charset="UTF-8">
+  <title>RAJA BET – Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body{background:#111;color:white;font-family:Arial;text-align:center}
-    .card{background:#222;margin:10px;padding:15px;border-radius:10px}
-    button{padding:10px 20px;margin:5px;border:none;border-radius:5px}
-    .green{background:green;color:white}
-    .red{background:red;color:white}
-    .yellow{background:orange}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      background: #020617;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .balance {
+      margin: 20px;
+      font-size: 18px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 16px;
+    }
+
+    .card:hover {
+      background: #334155;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #22c55e;
+      color: black;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
 
-<h1>RAJA BET</h1>
-<h3>Balance: ৳ <span id="bal">0</span></h3>
+<header>RAJA BET (DEMO)</header>
 
-<div class="card">
-  <button class="green" onclick="deposit()">Deposit</button>
-  <button class="red" onclick="withdraw()">Withdraw</button>
+<div class="balance">
+  💰 Balance: <span id="balance">1000</span> TK
 </div>
 
-<div class="card">
-  <a href="game.html"><button class="yellow">🎮 Play Game</button></a>
+<div class="games">
+  <div class="card" onclick="playGame()">🎲 Dice Game</div>
+  <div class="card" onclick="playGame()">⚽ Football Bet</div>
+  <div class="card" onclick="playGame()">🎰 Slot Game</div>
+  <div class="card" onclick="playGame()">🏏 Cricket Bet</div>
 </div>
+
+<button onclick="resetBalance()">Reset Balance</button>
+
+<footer>
+  Demo Version • Real money disabled
+</footer>
 
 <script>
-let users = JSON.parse(localStorage.getItem("users")) || {};
-let currentUser = localStorage.getItem("currentUser");
+  let balance = 1000;
 
-if(!currentUser){
-  alert("Please login first");
-  window.location.href = "login.html";
-}
+  function playGame() {
+    let bet = 100;
 
-let bal = users[currentUser]?.balance || 0;
-document.getElementById("bal").innerText = bal;
+    if (balance < bet) {
+      alert("Balance শেষ!");
+      return;
+    }
 
-function deposit(){
-  let amt = prompt("Deposit amount");
-  if(!amt) return;
+    let win = Math.random() > 0.5;
 
-  let req = JSON.parse(localStorage.getItem("requests")) || [];
-  req.push({
-    user: currentUser,
-    type: "deposit",
-    amount: Number(amt),
-    status: "pending"
-  });
+    if (win) {
+      balance += bet;
+      alert("🎉 আপনি জিতেছেন 100 TK");
+    } else {
+      balance -= bet;
+      alert("❌ আপনি হারিয়েছেন 100 TK");
+    }
 
-  localStorage.setItem("requests", JSON.stringify(req));
-  alert("Deposit request sent");
-}
+    document.getElementById("balance").innerText = balance;
+  }
 
-function withdraw(){
-  let amt = prompt("Withdraw amount");
-  if(!amt) return;
-
-  let req = JSON.parse(localStorage.getItem("requests")) || [];
-  req.push({
-    user: currentUser,
-    type: "withdraw",
-    amount: Number(amt),
-    status: "pending"
-  });
-
-  localStorage.setItem("requests", JSON.stringify(req));
-  alert("Withdraw request sent");
-}
+  function resetBalance() {
+    balance = 1000;
+    document.getElementById("balance").innerText = balance;
+  }
 </script>
 
 </body>
